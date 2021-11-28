@@ -26,6 +26,7 @@ typedef struct
     int sursize;      //元素的个数
 }SeqList;
 
+//接口声明
 //1.初始化线性表函数实现
 void InitSeqList(SeqList * plist);
 //2.打印函数实现
@@ -51,6 +52,7 @@ void PushBack(SeqList * plist, ElemType val);
 //11.扩容函数,两种实现方法，一个是malloc，另一个是realloc
 bool Inc_Capacity(SeqList * plist);
 bool Inc_Capacity_realloc(SeqList * plist);
+
 
 
 int main(void)
@@ -134,6 +136,8 @@ bool IsEmpty(const SeqList * plist)
     assert(plist != NULL);
     //return 0 == plist->sursize;
     return 0 == GetSize(plist);
+    //不可以对函数返回值赋值，所以格式写成GetSize(plist) == 0问题不大
+    //当写成GetSize(plist) = 0编译器会报错
 }
 
 bool IsFull(const SeqList * plist)
@@ -148,13 +152,13 @@ status InsertItem(SeqList * plist, int pos, ElemType val)
     assert(plist != NULL);
     if (pos < 0 || pos > plist->sursize)
     {
-        return -INFEASIBLE;
+        return INFEASIBLE;  //-1
     }
     //这里意思是先判断顺序表是否先满了，不满就不执行扩容函数
     //顺序表满了后，就执行扩容函数，然后扩容函数返回值取反，用来判断是否扩容成功
     if (IsFull(plist) && !Inc_Capacity(plist))
     {
-        return -ERROR;
+        return OVERFLOW;    //-2
     }
     for (int i = plist->sursize; i > pos; --i)
     {
@@ -163,7 +167,7 @@ status InsertItem(SeqList * plist, int pos, ElemType val)
     plist->data[pos] = val;
     plist->sursize +=1;
 
-    return OK;
+    return OK;  //1
 }
 
 void PushFront(SeqList * plist, ElemType val)
