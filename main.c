@@ -14,8 +14,11 @@ typedef struct
     int sursize;      //元素的个数
 }SeqList;
 
-//初始化线性表函数实现
+//1.初始化线性表函数实现
 void InitSeqList(SeqList * plist);
+//2.打印函数实现
+void PrintSeqList(const SeqList * plist);
+
 
 int main(void)
 {
@@ -29,7 +32,7 @@ int main(void)
 
 void InitSeqList(SeqList * plist)
 {
-    assert(plist != NULL);
+    assert(plist != NULL);  //若用户指定的条件非true，则异常终止程序
 
     plist->data = (ElemType *)malloc(sizeof(ElemType) * SEQ_INIT_SIZE);
     if (NULL == plist)
@@ -40,4 +43,17 @@ void InitSeqList(SeqList * plist)
     }
     plist->sursize = 0;
     plist->capacity = SEQ_INIT_SIZE;
+}
+
+void PrintSeqList(const SeqList * plist)
+{
+    assert(plist != NULL);
+    printf("capacity: %d", plist->capacity);
+    printf("cursize: %d", plist->sursize);
+
+    for (int i = 0; i < plist->sursize; ++i)
+    {
+        printf("%3d", plist->data[i]);
+    }
+    printf("\n");
 }
