@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <malloc.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define SEQ_INIT_SIZE 10    //初始化顺序表容量
 #define SEQ_INC_SIZE  2     //顺序表增长因子
@@ -22,6 +23,14 @@ void PrintSeqList(const SeqList * plist);
 //pos代表的是数组下标
 int FindValue1(const SeqList * plist, ElemType val);
 int FindValue2(const SeqList * plist, ElemType val);
+//4.返回表中数据元素的个数
+int GetSize(const SeqList * plist);
+//5.返回表的容量
+int GetCapacity(const SeqList * plist);
+//6.判表是否为空，是true，否flase
+bool IsEmpty(const SeqList * plist);
+//7.判表是否已满
+bool IsFull(const SeqList * plist);
 
 int main(void)
 {
@@ -85,4 +94,26 @@ int FindValue2(const SeqList * plist, ElemType val)
         --pos;
     }
     return pos;
+}
+
+int GetSize(const SeqList * plist)
+{
+    return plist->sursize;
+}
+
+int GetCapacity(const SeqList * plist)
+{
+    return plist->capacity;
+}
+
+bool IsEmpty(const SeqList * plist)
+{
+    //return 0 == plist->sursize;
+    return 0 == GetSize(plist);
+}
+
+bool IsFull(const SeqList * plist)
+{
+    //return plist->sursize == plist->capacity;
+    return GetSize(plist) == GetCapacity(plist);
 }
