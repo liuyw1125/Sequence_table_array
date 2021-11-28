@@ -43,7 +43,7 @@ bool IsEmpty(const SeqList * plist);
 //7.判表是否已满
 bool IsFull(const SeqList * plist);
 //8.指定位置插入数据元素
-status EraseElem(SeqList * plist, int pos, ElemType val);
+status InsertItem(SeqList * plist, int pos, ElemType val);
 //9.头插数据元素
 void PushFront(SeqList * plist, ElemType val);
 //10.尾插数据元素
@@ -67,15 +67,15 @@ void InitSeqList(SeqList * plist)
 {
     assert(plist != NULL);  //若用户指定的条件非true，则异常终止程序
 
-    plist->data = (ElemType *)malloc(sizeof(ElemType) * SEQ_INIT_SIZE);
-    if (NULL == plist)
+    plist->sursize = 0;
+    plist->capacity = SEQ_INIT_SIZE;
+    plist->data = (ElemType *)malloc(sizeof(ElemType) * plist->capacity);
+    if (NULL == plist->data)
     {
-        printf("Failed to allocate memory");
+        printf("Failed to allocate memory\n");
         exit(EXIT_FAILURE);
         //若 exit_code 为 EXIT_FAILURE ，则返回指示不成功终止的实现定义状态
     }
-    plist->sursize = 0;
-    plist->capacity = SEQ_INIT_SIZE;
 }
 
 void PrintSeqList(const SeqList * plist)
@@ -143,10 +143,10 @@ bool IsFull(const SeqList * plist)
     return GetSize(plist) == GetCapacity(plist);
 }
 
-status EraseElem(SeqList * plist, int pos, ElemType val)
+status InsertItem(SeqList * plist, int pos, ElemType val)
 {
     assert(plist != NULL);
-    if (pos < 0 && pos > plist->sursize)
+    if (pos < 0 || pos > plist->sursize)
     {
         return -INFEASIBLE;
     }
@@ -161,6 +161,7 @@ status EraseElem(SeqList * plist, int pos, ElemType val)
         plist->data[i] = plist->data[i-1];
     }
     plist->data[pos] = val;
+    plist->sursize +=1;
 
     return OK;
 }
@@ -168,20 +169,21 @@ status EraseElem(SeqList * plist, int pos, ElemType val)
 void PushFront(SeqList * plist, ElemType val)
 {
     assert(plist != NULL);
-    EraseElem(plist, 0, val);
+    InsertItem(plist, 0, val);
 }
 
 void PushBack(SeqList * plist, ElemType val)
 {
     assert(plist != NULL);
-    EraseElem(plist, plist->sursize, val);
+    InsertItem(plist, plist->sursize, val);
 }
 
 bool Inc_Capacity(SeqList * plist)
 {
     assert(plist != NULL);
     int total = plist->capacity * SEQ_INC_SIZE;
-    ElemType * newdata = (ElemType *)malloc(sizeof(ElemType) * total);
+    ElemType  * newdata = NULL;
+    newdata = (ElemType *)malloc(sizeof(ElemType) * total);
     if (NULL == newdata)
     {
         return false;
@@ -216,8 +218,13 @@ bool Inc_Capacity_realloc(SeqList * plist)
 {
     assert(plist != NULL);
     int total = plist->capacity * SEQ_INC_SIZE;
-    //realloc的用法请参考杨老师的说明或者自己百度解决
-    ElemType * newdata = (ElemType *)realloc(plist->data, sizeof(ElemType) * total);
+    //理想情况下，realloc函数是直接在顺序表后面追加
+    //顺序表后续堆空间不足的时候，realloc就像我们之前写的代码那样，重新申请一块已经扩容的堆内存。
+    //然后把数据复制到新的堆内存上，并把扩容之前的那个顺序表的内存控制权限给回我们的操作系统
+    //或者系统的堆内存不足，这里要是直接realloc分配失败，返回给plist->data,就变成NULL了。
+    //导致内存泄露，丢失重要数据
+    ElemType * newdata = NULL;
+    newdata = (ElemType *)realloc(plist->data, sizeof(ElemType) * total);
     if (newdata == NULL)
     {
         return false;
