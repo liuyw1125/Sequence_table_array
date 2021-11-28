@@ -18,7 +18,10 @@ typedef struct
 void InitSeqList(SeqList * plist);
 //2.打印函数实现
 void PrintSeqList(const SeqList * plist);
-
+//3.查询函数，返回下标(两种实现方法)
+//pos代表的是数组下标
+int FindValue1(const SeqList * plist, ElemType val);
+int FindValue2(const SeqList * plist, ElemType val);
 
 int main(void)
 {
@@ -56,4 +59,30 @@ void PrintSeqList(const SeqList * plist)
         printf("%3d", plist->data[i]);
     }
     printf("\n");
+}
+
+int FindValue1(const SeqList * plist, ElemType val)
+{
+    assert(plist != NULL);
+    int pos = -1;
+    for (int i = 0; i < plist->sursize; ++i)
+    {
+        if (val == plist->data[i])
+        {
+            pos = i;
+            break;
+        }
+    }
+    return pos;
+}
+
+int FindValue2(const SeqList * plist, ElemType val)
+{
+    assert(plist != NULL);
+    int pos = plist->sursize-1;
+    while ((pos >= 0) && (val!= plist->data[pos]))
+    {
+        --pos;
+    }
+    return pos;
 }
