@@ -58,6 +58,14 @@ status EraseElem(SeqList * plist, int pos);
 void PopFront(SeqList * plist);
 //14.尾删除元素
 void PopBack(SeqList * plist);
+//15.判断数据元素是否在表中
+bool LocateElem(const SeqList * plist, ElemType val);
+//16.销毁
+void DestorySeqList(SeqList * plist);
+//17.重置为空表
+void ClearSeqList(SeqList * plist);
+//18.删除数据元素
+status Remove(SeqList * plist, ElemType val);
 
 
 int main(void)
@@ -266,4 +274,31 @@ void PopBack(SeqList * plist)
 {
     assert(plist != NULL);
     EraseElem(plist, plist->sursize - 1);
+}
+
+bool LocateElem(const SeqList * plist, ElemType val)
+{
+    assert(plist != NULL);
+    return FindValue1(plist, val) != -1;
+}
+
+void DestorySeqList(SeqList * plist)
+{
+    assert(plist != NULL);
+    plist->sursize = 0;
+    plist->capacity = 0;
+    free(plist->data);
+    plist->data = NULL;
+}
+
+void ClearSeqList(SeqList * plist)
+{
+    assert(plist != NULL);
+    plist->sursize = 0;
+}
+
+status Remove(SeqList * plist, ElemType val)
+{
+    assert(plist != NULL);
+    return EraseElem(plist,FindValue1(plist, val));
 }
