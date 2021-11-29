@@ -29,6 +29,7 @@ int main(void)
 
 //第三次测试，测试删除重复元素    //备注p19
 //时间2021年11月29日21:01:13
+/*
     int arr[] = {23, 12, 12, 34, 56, 12, 12, 78};
     int length = sizeof(arr)/sizeof(arr[0]);
     for (int i = 0; i < length; ++i)
@@ -40,6 +41,7 @@ int main(void)
     //Remove_All2(&myseq, 12);
     Remove_All3(&myseq, 12);
     PrintSeqList(&myseq);
+*/
 
     DestorySeqList(&myseq);
     return 0;
@@ -47,4 +49,5 @@ int main(void)
 
 /*
  * 备注p20
+ * 主分支保留
  */
