@@ -71,6 +71,10 @@ void ClearSeqList(SeqList * plist);
 status Remove(SeqList * plist, ElemType val);
 //19.冒泡排序
 void BubbleSort(SeqList * plist);
+//20.删除所有和val相等的数据元素,三种实现方法
+void Remove_All1(SeqList * plist, ElemType val);
+void Remove_All2(SeqList * plist, ElemType val);
+void Remove_All3(SeqList * plist, ElemType val);
 
 
 #endif

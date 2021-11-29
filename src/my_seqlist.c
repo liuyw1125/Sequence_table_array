@@ -233,7 +233,7 @@ void BubbleSort(SeqList * plist)
     {
         for (int j = 0; j < plist->sursize - 1 - i; ++j)
         {
-            if (plist->data[j] < plist->data[j+1])  // >表示升序 <表示降序
+            if (plist->data[j] > plist->data[j+1])  // >表示升序 <表示降序
             {
                 temp = plist->data[j];
                 plist->data[j] = plist->data[j+1];
@@ -242,4 +242,44 @@ void BubbleSort(SeqList * plist)
         }
     }
 
+}
+
+void Remove_All1(SeqList * plist, ElemType val)
+{
+    assert(plist != NULL);
+    int pos;
+    while ((pos = FindValue1(plist, val)) != -1)
+    {
+        EraseElem(plist, pos);
+    }
+}
+
+void Remove_All2(SeqList * plist, ElemType val)
+{
+    assert(plist != NULL);
+    int j = -1;
+    for (int i = 0; i < plist->sursize; ++i)
+    {
+        if (plist->data[i] != val)
+        {
+            j = j +1;
+            plist->data[j] = plist->data[i];
+        }
+    }
+    plist->sursize = j + 1;
+}
+
+void Remove_All3(SeqList * plist, ElemType val)
+{
+    assert(plist != NULL);
+    int j = 0;
+    for (int i = 0; i < plist->sursize; ++i)
+    {
+        if (plist->data[i] != val)
+        {
+            plist->data[j] = plist->data[i];
+            j = j +1;
+        }
+    }
+    plist->sursize = j;
 }

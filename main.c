@@ -20,16 +20,31 @@ int main(void)
     PrintSeqList(&myseq);
 */
 
-//第二次测试，测试冒泡
+//第二次测试，测试冒泡    //自己写的
 //时间2021年11月29日20:44:52
 /*
     BubbleSort(&myseq);
     PrintSeqList(&myseq);
 */
+
+//第三次测试，测试删除重复元素    //备注p19
+//时间2021年11月29日21:01:13
+    int arr[] = {23, 12, 12, 34, 56, 12, 12, 78};
+    int length = sizeof(arr)/sizeof(arr[0]);
+    for (int i = 0; i < length; ++i)
+    {
+        PushBack(&myseq,arr[i]);
+    }
+    PrintSeqList(&myseq);
+    //Remove_All1(&myseq, 12);
+    //Remove_All2(&myseq, 12);
+    Remove_All3(&myseq, 12);
+    PrintSeqList(&myseq);
+
     DestorySeqList(&myseq);
     return 0;
 }
 
 /*
- * 备注p19
+ * 备注p20
  */
