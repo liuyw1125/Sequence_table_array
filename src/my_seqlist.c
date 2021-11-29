@@ -224,3 +224,22 @@ status Remove(SeqList * plist, ElemType val)
     assert(plist != NULL);
     return EraseElem(plist,FindValue1(plist, val));
 }
+
+void BubbleSort(SeqList * plist)
+{
+    assert(plist != NULL);
+    int temp;//临时变量
+    for (int i = 0; i < plist->sursize - 1; ++i)
+    {
+        for (int j = 0; j < plist->sursize - 1 - i; ++j)
+        {
+            if (plist->data[j] < plist->data[j+1])  // >表示升序 <表示降序
+            {
+                temp = plist->data[j];
+                plist->data[j] = plist->data[j+1];
+                plist->data[j+1] = temp;
+            }
+        }
+    }
+
+}

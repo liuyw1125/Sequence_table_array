@@ -69,6 +69,8 @@ void DestorySeqList(SeqList * plist);
 void ClearSeqList(SeqList * plist);
 //18.删除数据元素
 status Remove(SeqList * plist, ElemType val);
+//19.冒泡排序
+void BubbleSort(SeqList * plist);
 
 
 #endif
