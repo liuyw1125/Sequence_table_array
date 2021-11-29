@@ -52,7 +52,12 @@ void PushBack(SeqList * plist, ElemType val);
 //11.扩容函数,两种实现方法，一个是malloc，另一个是realloc
 bool Inc_Capacity(SeqList * plist);
 bool Inc_Capacity_realloc(SeqList * plist);
-
+//12.删除指定位置数据元素
+status EraseElem(SeqList * plist, int pos);
+//13.头删数据元素
+void PopFront(SeqList * plist);
+//14.尾删除元素
+void PopBack(SeqList * plist);
 
 
 int main(void)
@@ -236,4 +241,29 @@ bool Inc_Capacity_realloc(SeqList * plist)
     plist->data = newdata;
     plist->capacity = total;
     return true;
+}
+
+status EraseElem(SeqList * plist, int pos)
+{
+    assert(plist != NULL);
+    if (pos < 0 || pos > plist->sursize - 1) {
+        return INFEASIBLE;
+    }
+    for (int i = pos; i < plist->sursize - 1; ++i) {
+        plist->data[i] = plist->data[i + 1];
+    }
+    plist->sursize -= 1;
+    return OK;
+}
+
+void PopFront(SeqList * plist)
+{
+    assert(plist != NULL);
+    EraseElem(plist, 0);
+}
+
+void PopBack(SeqList * plist)
+{
+    assert(plist != NULL);
+    EraseElem(plist, plist->sursize - 1);
 }
