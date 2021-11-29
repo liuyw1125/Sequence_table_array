@@ -1,8 +1,6 @@
-#include <stdio.h>
-
 #include "my_seqlist.h"
 
-int main(void)
+int main()
 {
     SeqList myseq = {};
     InitSeqList(&myseq);
@@ -49,5 +47,5 @@ int main(void)
 
 /*
  * 备注p20
- * 主分支保留
+ * dev分支
  */
