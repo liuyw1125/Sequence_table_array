@@ -318,7 +318,7 @@ void MergeList_Sqa(const SeqList *pLa, const SeqList * pLb, SeqList *pLc)
     }
 }
 
-void MergeList_Sq(const SeqList *pLa, const SeqList * pLb, SeqList &pLc)
+status MergeList_Sqb(const SeqList *pLa, const SeqList * pLb, SeqList &pLc)
 {
     //已知顺序线性表La和Lb的元素按值非递减排列。
     // 归并La和Lb得到新的顺序线性表Lc,Lc的元素也按值非递减排列
@@ -326,9 +326,12 @@ void MergeList_Sq(const SeqList *pLa, const SeqList * pLb, SeqList &pLc)
     ElemType * pb = pLb->data;
     pLc.capacity = pLc.sursize = pLa->sursize + pLb->sursize;
     ElemType * pc = pLc.data = (ElemType *)malloc(pLc.capacity * sizeof(ElemType));
-    //这里要加上这个比较好
-    if(NULL== pc) // 存储分配失败
-        exit(OVERFLOW);
+    if(NULL== pLc.data)
+    {
+        //exit(EXIT_FAILURE);
+        return OVERFLOW;
+
+    }
     ElemType * pa_Last = pLa->data + pLa->sursize - 1;
     ElemType * pb_Last = pLb->data + pLb->sursize - 1;
     while (pa <= pa_Last && pb <= pb_Last)
@@ -350,4 +353,43 @@ void MergeList_Sq(const SeqList *pLa, const SeqList * pLb, SeqList &pLc)
     {
         *pc++ = *pb++;
     }
+    return OK;
+}
+
+status MergeList_Sq(SeqList pLa, SeqList pLb, SeqList &pLc)
+{
+    //已知顺序线性表La和Lb的元素按值非递减排列。
+    // 归并La和Lb得到新的顺序线性表Lc,Lc的元素也按值非递减排列
+    ElemType * pa = pLa.data;
+    ElemType * pb = pLb.data;
+    pLc.capacity = pLc.sursize = pLa.sursize + pLb.sursize;
+    ElemType * pc = pLc.data = (ElemType *)malloc(pLc.capacity * sizeof(ElemType));
+    if(NULL== pLc.data)
+    {
+        //exit(EXIT_FAILURE);
+        return OVERFLOW;
+
+    }
+    ElemType * pa_Last = pLa.data + pLa.sursize - 1;
+    ElemType * pb_Last = pLb.data + pLb.sursize - 1;
+    while (pa <= pa_Last && pb <= pb_Last)
+    {
+        if (*pa <= *pb)
+        {
+            *pc++ = *pa++;  // *pc = *pa; pc++; pa++;
+        }
+        else
+        {
+            *pc++ = *pb++;
+        }
+    }
+    while (pa <= pa_Last)
+    {
+        *pc++ = *pa++;
+    }
+    while (pb <= pb_Last)
+    {
+        *pc++ = *pb++;
+    }
+    return OK;
 }

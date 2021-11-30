@@ -24,10 +24,12 @@ int main()
     PrintSeqList(&Lb);
 
     //这里是引用和直接用指针的差别
-    //指针
+    //1.指针
     //MergeList_Sqa(&La, &Lb, &Lc);
-    //引用(取别名)
-    MergeList_Sq(&La, &Lb, Lc);
+    //2.引用(取别名)
+    //MergeList_Sqb(&La, &Lb, Lc);
+    //3.结构体浅拷贝临时变量La，Lb的*data里的值和实参的指向的是同一个堆区数组(线性表)
+    MergeList_Sq(La, Lb, Lc);
 
     PrintSeqList(&Lc);
 
