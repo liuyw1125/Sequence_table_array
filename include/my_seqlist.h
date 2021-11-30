@@ -79,5 +79,8 @@ void Remove_All3(SeqList * plist, ElemType val);
 void MergeList_Sqa(const SeqList *pLa, const SeqList * pLb, SeqList *pLc);
 status MergeList_Sqb(const SeqList *pLa, const SeqList * pLb, SeqList &pLc);
 status MergeList_Sq(SeqList pLa, SeqList pLb, SeqList &pLc);
+//22.合并两个有序数组(非递减),参数，数组首地址，数组空间大小，元素个数,两种方法
+void merge_1(int * nums1, int nums1Size, int m, int * nums2, int nums2Size, int n);
+void merge(int * nums1, int nums1Size, int m, int * nums2, int nums2Size, int n);
 
 #endif

@@ -393,3 +393,41 @@ status MergeList_Sq(SeqList pLa, SeqList pLb, SeqList &pLc)
     }
     return OK;
 }
+
+void merge_1(int * nums1, int nums1Size, int m, int * nums2, int nums2Size, int n)
+{
+    assert(nums1 != NULL && nums2 != NULL);
+    int * newdata = (int *)malloc(sizeof(int) * (m + n));
+    if (NULL == newdata)
+    {
+        exit(1);
+    }
+    int i = 0, j = 0;  //i nums1, j nums2
+    int k = 0;
+    while (i < m && j < n)
+    {
+        newdata[k++] = nums1[i] <= nums2[j]?nums1[i++]:nums2[j++];
+    }
+    while (i < m) newdata[k++] = nums1[i++];
+    while (j < n) newdata[k++] = nums2[j++];
+
+    for (i = 0; i < m + n; ++i)
+    {
+        nums1[i] = newdata[i];
+    }
+    free(newdata);
+    newdata =NULL;
+}
+
+void merge(int * nums1, int nums1Size, int m, int * nums2, int nums2Size, int n)
+{
+    assert(nums1 != NULL && nums2 != NULL);
+    int i = m - 1;  //s1
+    int j = n - 1;  //s2
+    int k = m + n -1;   //s1
+    while (i >= 0 && j >= 0)
+    {
+        nums1[k--] = nums2[j] >= nums1[i] ? nums2[j--]:nums1[i--];
+    }
+    while (j >= 0) {nums1[k--] = nums2[j--];}
+}
