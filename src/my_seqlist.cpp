@@ -431,3 +431,80 @@ void merge(int * nums1, int nums1Size, int m, int * nums2, int nums2Size, int n)
     }
     while (j >= 0) {nums1[k--] = nums2[j--];}
 }
+
+void MoveArray(int * nums, int n)  //right 1
+{
+    assert(nums != NULL);
+    int temp = nums[n-1];
+    for (int i = n-1; i > 0; --i)
+    {
+        nums[i] = nums[i-1];
+    }
+    nums[0] = temp;
+}
+
+void Rotate(int *nums, int n, int k)
+{
+    assert(nums != NULL);
+    if (k < 0) {printf("k error \n"); return ;}
+    k = k % n;
+    for (int i = 0; i < k; ++i)
+    {
+        MoveArray(nums, n);
+    }
+}
+
+void Rotate_Right(int * nums, int n, int k)
+{
+    assert(nums != NULL);
+    if (k < 0) return;
+    k = k % n;
+    int * newdata = (int *)calloc(sizeof(int), n);  //
+    if(NULL == newdata) {exit(1);}
+    int j = k;
+    for (int i = 0; i <= n - k - 1; ++i)
+    {
+        newdata[j] = nums[i];
+        j = j + 1;
+    }
+    j = 0;
+    for (int i = n - k; i <= n - 1; ++i)
+    {
+        newdata[j] = nums[i];
+        j = j + 1;
+    }
+    for (int i = 0; i < n; ++i)
+    {
+        nums[i] = newdata[i];
+    }
+    free(newdata);
+    newdata = NULL;
+}
+
+void Swap_Init(int * ap, int *bp)
+{
+    int temp = *ap;
+    *ap = *bp;
+    *bp = temp;
+}
+
+void Rev(int * nums, int left, int right)
+{
+    assert(nums != NULL);
+    while (left < right)
+    {
+        Swap_Init(&nums[left], &nums[right]);
+        left++;
+        right--;
+    }
+}
+
+void Rotate_Ar(int * nums, int n , int k)
+{
+    assert(nums != NULL);
+    if (k < 0) return;
+    k = k % n;
+    Rev(nums, 0, n-1);
+    Rev(nums, 0, k - 1);
+    Rev(nums, k, n - 1);
+}

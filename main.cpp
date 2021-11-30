@@ -1,7 +1,27 @@
 #include "my_seqlist.h"
 
+//p22 23旋转数组的三种方法
+
+int main()
+{
+    int ar[] = {1, 2, 3, 4, 5, 6, 7};
+    int n = sizeof(ar)/sizeof(ar[0]);
+    //第一种方法，一个一个移动
+    //Rotate(ar, n, 3);
+    //第二种方法,辅助空间
+    //Rotate_Right(ar, n, 3);
+    //第三种方法，逆置
+    Rotate_Ar(ar, n , 3);
+
+
+    return 0;
+}
+
+
+
 //p20 21合并两个有序数据
 //时间2021年11月30日13:38:04
+#if 0
 int main()
 {
     //用debug调试
@@ -18,7 +38,7 @@ int main()
 
     return 0;
 }
-
+#endif
 
 //p19 20数据结构中代码的详解(1),main函数部分
 //时间 2021年11月30日11:30:23

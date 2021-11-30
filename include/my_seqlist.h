@@ -75,6 +75,8 @@ void BubbleSort(SeqList * plist);
 void Remove_All1(SeqList * plist, ElemType val);
 void Remove_All2(SeqList * plist, ElemType val);
 void Remove_All3(SeqList * plist, ElemType val);
+
+//数据结构书，或者面试题中的一些题目
 //21.严蔚敏数据结构第一版，算法2.7，两个顺序线性表的合并，第一种方式用c语言指针，另一种方式用C++的引用,另一种是结构体浅拷贝
 void MergeList_Sqa(const SeqList *pLa, const SeqList * pLb, SeqList *pLc);
 status MergeList_Sqb(const SeqList *pLa, const SeqList * pLb, SeqList &pLc);
@@ -82,5 +84,15 @@ status MergeList_Sq(SeqList pLa, SeqList pLb, SeqList &pLc);
 //22.合并两个有序数组(非递减),参数，数组首地址，数组空间大小，元素个数,两种方法
 void merge_1(int * nums1, int nums1Size, int m, int * nums2, int nums2Size, int n);
 void merge(int * nums1, int nums1Size, int m, int * nums2, int nums2Size, int n);
+//23.旋转数组，将数组中的元素向右移动k个位置，其中k是非负整数。
+//第一种
+void MoveArray(int *nums, int n);  //right 1
+void Rotate(int *nums, int n, int k);
+//第二种，空间换时间
+void Rotate_Right(int * nums, int n, int k);
+//第三种,逆置
+void Swap_Init(int * ap, int *bp);
+void Rev(int * nums, int left, int right);
+void Rotate_Ar(int * nums, int n , int k);
 
 #endif
