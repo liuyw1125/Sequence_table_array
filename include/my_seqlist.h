@@ -75,6 +75,8 @@ void BubbleSort(SeqList * plist);
 void Remove_All1(SeqList * plist, ElemType val);
 void Remove_All2(SeqList * plist, ElemType val);
 void Remove_All3(SeqList * plist, ElemType val);
-
+//21.严蔚敏数据结构第一版，算法2.7，两个顺序线性表的合并，第一种方式用c语言指针，另一种方式用C++的引用
+void MergeList_Sqa(const SeqList *pLa, const SeqList * pLb, SeqList *pLc);
+void MergeList_Sq(const SeqList *pLa, const SeqList * pLb, SeqList &pLc);
 
 #endif
