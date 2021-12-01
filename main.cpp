@@ -1,7 +1,37 @@
 #include "my_seqlist.h"
 
-//p22 23旋转数组的三种方法
+//p24 25 数据结构中代码的详解(2),main函数部分
+//时间 2021年12月1日11:56:08
+#if 0
+int main()
+{
+    int ar[] = {2, 4, 6, 8, 10};
+    int na = sizeof(ar)/sizeof(ar[0]);
+    int br[] = {1, 3, 6, 8, 9, 11};
+    int nb = sizeof(br)/sizeof(br[0]);
 
+    SeqList La, Lb;
+    InitSeqList(&La);
+    InitSeqList(&Lb);
+    for (int i = 0; i < na; ++i) { PushBack(&La, ar[i]);}
+    for (int i = 0; i < nb; ++i) { PushBack(&Lb, br[i]);}
+    PrintSeqList(&La);
+    PrintSeqList(&Lb);
+    Union(&La, &Lb);
+
+    PrintSeqList(&La);
+
+    DestorySeqList(&La);
+    DestorySeqList(&Lb);
+
+    return 0;
+}
+#endif
+
+
+//p22 23旋转数组的三种方法
+//时间2021年11月30日16:02:38
+#if 0
 int main()
 {
     int ar[] = {1, 2, 3, 4, 5, 6, 7};
@@ -16,6 +46,7 @@ int main()
 
     return 0;
 }
+#endif
 
 
 
@@ -134,6 +165,6 @@ int main()
 #endif
 
 /*
- * 备注更新到那个里，目前是p19
+ * 备注更新到那个里，目前是p23
  * dev分支
  */

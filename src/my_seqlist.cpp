@@ -4,7 +4,7 @@ void InitSeqList(SeqList * plist)
 {
     assert(plist != NULL);  //若用户指定的条件非true，则异常终止程序
 
-    plist->sursize = 0;
+    plist->cursize = 0;
     plist->capacity = SEQ_INIT_SIZE;
     plist->data = (ElemType *)malloc(sizeof(ElemType) * plist->capacity);
     if (NULL == plist->data)
@@ -19,9 +19,9 @@ void PrintSeqList(const SeqList * plist)
 {
     assert(plist != NULL);
     printf("capacity: %d\n", plist->capacity);
-    printf("cursize: %d\n", plist->sursize);
+    printf("cursize: %d\n", plist->cursize);
 
-    for (int i = 0; i < plist->sursize; ++i)
+    for (int i = 0; i < plist->cursize; ++i)
     {
         printf("%3d ", plist->data[i]);
     }
@@ -32,7 +32,7 @@ int FindValue1(const SeqList * plist, ElemType val)
 {
     assert(plist != NULL);
     int pos = -1;
-    for (int i = 0; i < plist->sursize; ++i)
+    for (int i = 0; i < plist->cursize; ++i)
     {
         if (val == plist->data[i])
         {
@@ -46,7 +46,7 @@ int FindValue1(const SeqList * plist, ElemType val)
 int FindValue2(const SeqList * plist, ElemType val)
 {
     assert(plist != NULL);
-    int pos = plist->sursize-1;
+    int pos = plist->cursize - 1;
     while ((pos >= 0) && (val!= plist->data[pos]))
     {
         --pos;
@@ -57,7 +57,7 @@ int FindValue2(const SeqList * plist, ElemType val)
 int GetSize(const SeqList * plist)
 {
     assert(plist != NULL);
-    return plist->sursize;
+    return plist->cursize;
 }
 
 int GetCapacity(const SeqList * plist)
@@ -85,7 +85,7 @@ bool IsFull(const SeqList * plist)
 status InsertItem(SeqList * plist, int pos, ElemType val)
 {
     assert(plist != NULL);
-    if (pos < 0 || pos > plist->sursize)
+    if (pos < 0 || pos > plist->cursize)
     {
         return INFEASIBLE;  //-1
     }
@@ -95,12 +95,12 @@ status InsertItem(SeqList * plist, int pos, ElemType val)
     {
         return OVERFLOW;    //-2
     }
-    for (int i = plist->sursize; i > pos; --i)
+    for (int i = plist->cursize; i > pos; --i)
     {
         plist->data[i] = plist->data[i-1];
     }
     plist->data[pos] = val;
-    plist->sursize +=1;
+    plist->cursize +=1;
 
     return OK;  //1
 }
@@ -114,7 +114,7 @@ void PushFront(SeqList * plist, ElemType val)
 void PushBack(SeqList * plist, ElemType val)
 {
     assert(plist != NULL);
-    InsertItem(plist, plist->sursize, val);
+    InsertItem(plist, plist->cursize, val);
 }
 
 bool Inc_Capacity(SeqList * plist)
@@ -176,13 +176,13 @@ bool Inc_Capacity_realloc(SeqList * plist)
 status EraseElem(SeqList * plist, int pos)
 {
     assert(plist != NULL);
-    if (pos < 0 || pos > plist->sursize - 1) {
+    if (pos < 0 || pos > plist->cursize - 1) {
         return INFEASIBLE;
     }
-    for (int i = pos; i < plist->sursize - 1; ++i) {
+    for (int i = pos; i < plist->cursize - 1; ++i) {
         plist->data[i] = plist->data[i + 1];
     }
-    plist->sursize -= 1;
+    plist->cursize -= 1;
     return OK;
 }
 
@@ -195,7 +195,7 @@ void PopFront(SeqList * plist)
 void PopBack(SeqList * plist)
 {
     assert(plist != NULL);
-    EraseElem(plist, plist->sursize - 1);
+    EraseElem(plist, plist->cursize - 1);
 }
 
 bool LocateElem(const SeqList * plist, ElemType val)
@@ -207,7 +207,7 @@ bool LocateElem(const SeqList * plist, ElemType val)
 void DestorySeqList(SeqList * plist)
 {
     assert(plist != NULL);
-    plist->sursize = 0;
+    plist->cursize = 0;
     plist->capacity = 0;
     free(plist->data);
     plist->data = NULL;
@@ -216,7 +216,7 @@ void DestorySeqList(SeqList * plist)
 void ClearSeqList(SeqList * plist)
 {
     assert(plist != NULL);
-    plist->sursize = 0;
+    plist->cursize = 0;
 }
 
 status Remove(SeqList * plist, ElemType val)
@@ -229,9 +229,9 @@ void BubbleSort(SeqList * plist)
 {
     assert(plist != NULL);
     int temp;//临时变量
-    for (int i = 0; i < plist->sursize - 1; ++i)
+    for (int i = 0; i < plist->cursize - 1; ++i)
     {
-        for (int j = 0; j < plist->sursize - 1 - i; ++j)
+        for (int j = 0; j < plist->cursize - 1 - i; ++j)
         {
             if (plist->data[j] > plist->data[j+1])  // >表示升序 <表示降序
             {
@@ -258,7 +258,7 @@ void Remove_All2(SeqList * plist, ElemType val)
 {
     assert(plist != NULL);
     int j = -1;
-    for (int i = 0; i < plist->sursize; ++i)
+    for (int i = 0; i < plist->cursize; ++i)
     {
         if (plist->data[i] != val)
         {
@@ -266,14 +266,14 @@ void Remove_All2(SeqList * plist, ElemType val)
             plist->data[j] = plist->data[i];
         }
     }
-    plist->sursize = j + 1;
+    plist->cursize = j + 1;
 }
 
 void Remove_All3(SeqList * plist, ElemType val)
 {
     assert(plist != NULL);
     int j = 0;
-    for (int i = 0; i < plist->sursize; ++i)
+    for (int i = 0; i < plist->cursize; ++i)
     {
         if (plist->data[i] != val)
         {
@@ -281,7 +281,7 @@ void Remove_All3(SeqList * plist, ElemType val)
             j = j +1;
         }
     }
-    plist->sursize = j;
+    plist->cursize = j;
 }
 
 void MergeList_Sqa(const SeqList *pLa, const SeqList * pLb, SeqList *pLc)
@@ -290,13 +290,13 @@ void MergeList_Sqa(const SeqList *pLa, const SeqList * pLb, SeqList *pLc)
     // 归并La和Lb得到新的顺序线性表Lc,Lc的元素也按值非递减排列
     ElemType * pa = pLa->data;
     ElemType * pb = pLb->data;
-    pLc->capacity = pLc->sursize = pLa->sursize + pLb->sursize;
+    pLc->capacity = pLc->cursize = pLa->cursize + pLb->cursize;
     ElemType * pc = pLc->data = (ElemType *)malloc(pLc->capacity * sizeof(ElemType));
     //这里要加上这个比较好
     if(NULL== pc) // 存储分配失败
         exit(OVERFLOW);
-    ElemType * pa_Last = pLa->data + pLa->sursize - 1;
-    ElemType * pb_Last = pLb->data + pLb->sursize - 1;
+    ElemType * pa_Last = pLa->data + pLa->cursize - 1;
+    ElemType * pb_Last = pLb->data + pLb->cursize - 1;
     while (pa <= pa_Last && pb <= pb_Last)
     {
         if (*pa <= *pb)
@@ -324,7 +324,7 @@ status MergeList_Sqb(const SeqList *pLa, const SeqList * pLb, SeqList &pLc)
     // 归并La和Lb得到新的顺序线性表Lc,Lc的元素也按值非递减排列
     ElemType * pa = pLa->data;
     ElemType * pb = pLb->data;
-    pLc.capacity = pLc.sursize = pLa->sursize + pLb->sursize;
+    pLc.capacity = pLc.cursize = pLa->cursize + pLb->cursize;
     ElemType * pc = pLc.data = (ElemType *)malloc(pLc.capacity * sizeof(ElemType));
     if(NULL== pLc.data)
     {
@@ -332,8 +332,8 @@ status MergeList_Sqb(const SeqList *pLa, const SeqList * pLb, SeqList &pLc)
         return OVERFLOW;
 
     }
-    ElemType * pa_Last = pLa->data + pLa->sursize - 1;
-    ElemType * pb_Last = pLb->data + pLb->sursize - 1;
+    ElemType * pa_Last = pLa->data + pLa->cursize - 1;
+    ElemType * pb_Last = pLb->data + pLb->cursize - 1;
     while (pa <= pa_Last && pb <= pb_Last)
     {
         if (*pa <= *pb)
@@ -362,7 +362,7 @@ status MergeList_Sq(SeqList pLa, SeqList pLb, SeqList &pLc)
     // 归并La和Lb得到新的顺序线性表Lc,Lc的元素也按值非递减排列
     ElemType * pa = pLa.data;
     ElemType * pb = pLb.data;
-    pLc.capacity = pLc.sursize = pLa.sursize + pLb.sursize;
+    pLc.capacity = pLc.cursize = pLa.cursize + pLb.cursize;
     ElemType * pc = pLc.data = (ElemType *)malloc(pLc.capacity * sizeof(ElemType));
     if(NULL== pLc.data)
     {
@@ -370,8 +370,8 @@ status MergeList_Sq(SeqList pLa, SeqList pLb, SeqList &pLc)
         return OVERFLOW;
 
     }
-    ElemType * pa_Last = pLa.data + pLa.sursize - 1;
-    ElemType * pb_Last = pLb.data + pLb.sursize - 1;
+    ElemType * pa_Last = pLa.data + pLa.cursize - 1;
+    ElemType * pb_Last = pLb.data + pLb.cursize - 1;
     while (pa <= pa_Last && pb <= pb_Last)
     {
         if (*pa <= *pb)
@@ -507,4 +507,63 @@ void Rotate_Ar(int * nums, int n , int k)
     Rev(nums, 0, n-1);
     Rev(nums, 0, k - 1);
     Rev(nums, k, n - 1);
+}
+
+void Union(SeqList * pLa, const SeqList * pLb)
+{
+    assert(pLa != NULL && pLb != NULL);
+    int n = GetSize(pLb);
+    for (int i = 0; i < n; ++i)
+    {
+        //第一种方法
+        //int tmp = pLb->data[i];
+        //if (!LocateElem(pLa, tmp))
+        //{
+        //    PushBack(pLa, tmp);
+        //}
+
+        //第二种方法，指针
+        //int val = 0;
+        //GetElem(pLb, i, &val);
+        //if (!LocateElem(pLa, val))
+        //{
+        //    PushBack(pLa, val);
+        //}
+
+        //第三种方法,引用
+        int val = 0;
+        Get_Elem(pLb, i, val);
+        if (!LocateElem(pLa, val))
+        {
+            PushBack(pLa, val);
+        }
+
+    }
+}
+
+status GetElem(const SeqList * plist, int pos, ElemType * pval)
+{
+    assert(plist != NULL);
+    if (pos < 0 || pos > plist->cursize - 1)
+    {
+        return INFEASIBLE;
+    }
+    if (NULL == pval)
+    {
+        return NULLPTR;
+    }
+    *pval = plist->data[pos];
+    return OK;
+}
+
+status Get_Elem(const SeqList * plist, int pos, ElemType &pval)
+{
+    assert(plist != NULL);
+    if (pos < 0 || pos > plist->cursize - 1)
+    {
+        return INFEASIBLE;
+    }
+
+    pval = plist->data[pos];
+    return OK;
 }

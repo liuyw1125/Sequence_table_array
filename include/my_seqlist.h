@@ -15,6 +15,7 @@
 
 #define INFEASIBLE  -1  //不能实行
 #define OVERFLOW    -2  //内存溢出
+#define NULLPTR     -3  //空指针
 
 typedef int status;     //状态
 
@@ -26,7 +27,7 @@ typedef struct
 {
     ElemType * data;  //存储空间地址
     int capacity;     //容量
-    int sursize;      //元素的个数
+    int cursize;      //元素的个数
 }SeqList;
 
 //接口声明
@@ -94,5 +95,11 @@ void Rotate_Right(int * nums, int n, int k);
 void Swap_Init(int * ap, int *bp);
 void Rev(int * nums, int left, int right);
 void Rotate_Ar(int * nums, int n , int k);
+//24.严蔚敏数据结构第一版，算法2.1,往顺序表中插入没有的元素
+void Union(SeqList * pLa, const SeqList * pLb);
+
+//25.返回指定位置的数据元素
+status GetElem(const SeqList * plist, int pos, ElemType * pval); //定位11:00 p23 24数据结构书中的代码详解
+status Get_Elem(const SeqList * plist, int pos, ElemType &pval); //定位24:34
 
 #endif
