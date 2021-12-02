@@ -1,6 +1,30 @@
 #include "my_seqlist.h"
 
+//最新进度，顺序表的程序已经完成，冒泡排序和二分法查询，在C语言哪里实现，这里暂时不写。备注p27 28
+
+//27.查找数组中的重复数字  选集p25 26
+//时间 2021年12月2日13:53:46
+int main()
+{
+    int nums[] = {1, 2, 3, 4, 2, 5};
+    int n = sizeof(nums)/sizeof(nums[0]);
+
+    //int dup = FindDuplicate_1(nums, n);
+    //int dup = FindDuplicate_2(nums, n);
+    //int dup = FindDuplicate_3(nums, n);
+    //int dup = FindDuplicate_4(nums, n);
+    int dup = FindDuplicate_5(nums, n);
+
+    printf("%d \n", dup);
+
+    return 0;
+}
+
+
+
 //p24 25数组序列是否具有单调性
+//时间 2021年12月2日11:16:06
+#if 0
 int main()
 {
     //int ar[] = {12, 23, 34, 45, 56, 67};
@@ -11,6 +35,8 @@ int main()
 
     return 0;
 }
+#endif
+
 
 //p24 25 数据结构中代码的详解(2),main函数部分
 //时间 2021年12月1日11:56:08
@@ -177,6 +203,6 @@ int main()
 #endif
 
 /*
- * 备注更新到那个里，目前是p23
+ * 备注更新到那个里，目前是p27
  * dev分支
  */

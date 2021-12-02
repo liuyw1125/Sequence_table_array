@@ -106,5 +106,17 @@ status Get_Elem(const SeqList * plist, int pos, ElemType &pval); //定位24:34
 bool Inc_Nums(int * nums, int n);   //单调递增
 bool Dec_Nums(int * nums, int n);   //单调递减
 bool IsMonotoni(int * nums, int n);
+//27.查找数组中的重复数字  选集p25 26,
+//第一种,等差数列求和。n(n+1)/2，缺点，当数组中不止一个重复数字找不出来，或者，数组的元素个数很大，超出int数据类型的范围，溢出
+int FindDuplicate_1(int * nums, int size);
+//第二种，暴力破解(穷举法)，时间复杂度太高了
+int FindDuplicate_2(int * nums, int size);
+//第三种排完序后，两两比较
+int Compare_ints(const  void *a, const void *b);
+int FindDuplicate_3(int * nums, int size);
+//第四种，查表法。
+int FindDuplicate_4(int * nums, int size);
+//第五种，双下标(双指针)
+int FindDuplicate_5(int * nums, int size);
 
 #endif

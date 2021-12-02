@@ -604,3 +604,105 @@ bool IsMonotoni(int * nums, int n)
 
     return Inc_Nums(nums, n) || Dec_Nums(nums, n);
 }
+
+int FindDuplicate_1(int * nums, int size)
+{
+    //n*(n+1)/2 = 2^31 -1
+    assert(nums != NULL);
+    int n = size - 1;
+    int total = n * (n + 1)/2;
+    int sum;
+    for (int i = 0; i < size; ++i)
+    {
+        sum = sum + nums[i];
+    }
+    return sum - total;
+}
+
+int FindDuplicate_2(int * nums, int size)
+{
+    assert(nums != NULL);
+    int tmp = 0;
+    for (int i = 0; i < size; ++i)  //size
+    {
+        tmp = nums[i];
+        for (int j = i + 1; j < size; ++j)
+        {
+            if (tmp == nums[j])     //(size-1) + (size-2) + (size-3)
+            {
+                goto end;
+            }
+        }
+    }
+    end:
+    return tmp;
+}
+
+int Compare_ints(const  void *a, const void *b)
+{
+    int arg1 = *(const int *)a;
+    int arg2 = *(const int *)b;
+    if (arg1 < arg2) return -1;
+    else if (arg1 > arg2) return 1;
+    else return 0;
+}
+
+int FindDuplicate_3(int * nums, int size)
+{
+    assert(nums != NULL);
+    qsort(nums, size, sizeof(int), Compare_ints);   //c库快排函数    //nlogn + n
+    int tmp = -1;
+    for (int i = 0; i < size - 1; ++i)
+    {
+        if (nums[i] == nums[i+1])
+        {
+            tmp = nums[i];
+            break;
+        }
+    }
+    return tmp;
+}
+
+int FindDuplicate_4(int * nums, int size)
+{
+    assert(nums != NULL);
+    //int * index = (int *)malloc(sizeof(int) * size);
+    //memset(index, 0, sizeof(int) * size);
+    int * index = (int *)calloc(size, sizeof(int));  //自动复制为0
+    int idx = 0;
+    for (int i = 0; i < size; ++i)      //O(n)
+    {
+        idx = nums[i];
+        if (index[idx] == 0)
+        {
+            index[idx] +=1;
+        }
+        else
+        {
+            break;
+        }
+    }
+    free(index);
+    index = NULL;
+    return idx;
+}
+
+int FindDuplicate_5(int * nums, int size)
+{
+    assert(nums != NULL);
+    int fast = 0;
+    int slow = 0;
+    do {
+        slow = nums[slow];
+        //fast = nums[fast];
+        //fast = nums[fast];
+        fast = nums[nums[fast]];
+    }while (slow != fast);
+    slow = 0;
+    while (slow != fast)
+    {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+    return slow;
+}
