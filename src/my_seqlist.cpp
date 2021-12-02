@@ -567,3 +567,40 @@ status Get_Elem(const SeqList * plist, int pos, ElemType &pval)
     pval = plist->data[pos];
     return OK;
 }
+
+bool Inc_Nums(int * nums, int n)
+{
+    assert(nums != NULL);
+    bool res = true;
+    for (int i = 0; i < n - 1; ++i)     //n // 0 1 2 3 4..... n-1
+    {
+        if (nums[i] > nums[i+1])
+        {
+            res = false;
+            break;
+        }
+    }
+    return res;
+}
+
+bool Dec_Nums(int * nums, int n)
+{
+    assert(nums != NULL);
+    bool res = true;
+    for (int i = 0; i < n - 1; ++i)     //n // 0 1 2 3 4..... n-1
+    {
+        if (nums[i] < nums[i+1])
+        {
+            res = false;
+            break;
+        }
+    }
+    return res;
+}
+
+bool IsMonotoni(int * nums, int n)
+{
+    assert(nums != NULL);
+
+    return Inc_Nums(nums, n) || Dec_Nums(nums, n);
+}

@@ -102,4 +102,9 @@ void Union(SeqList * pLa, const SeqList * pLb);
 status GetElem(const SeqList * plist, int pos, ElemType * pval); //定位11:00 p23 24数据结构书中的代码详解
 status Get_Elem(const SeqList * plist, int pos, ElemType &pval); //定位24:34
 
+//26.数组序列是否具有单调性 选集p24 25
+bool Inc_Nums(int * nums, int n);   //单调递增
+bool Dec_Nums(int * nums, int n);   //单调递减
+bool IsMonotoni(int * nums, int n);
+
 #endif

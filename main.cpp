@@ -1,5 +1,17 @@
 #include "my_seqlist.h"
 
+//p24 25数组序列是否具有单调性
+int main()
+{
+    //int ar[] = {12, 23, 34, 45, 56, 67};
+    //int ar[] = {78, 67, 56, 45, 34, 23, 12};
+    int ar[] = {78, 67, 56, 45, 12, 23, 34};
+    int n = sizeof(ar)/sizeof(ar[0]);
+    printf("%d \n", IsMonotoni(ar, n));
+
+    return 0;
+}
+
 //p24 25 数据结构中代码的详解(2),main函数部分
 //时间 2021年12月1日11:56:08
 #if 0
